@@ -215,57 +215,13 @@ class AnimeSail : MainAPI() {
                             .attr("src")
                     )
                 val quality = getIndexQuality(it.text())
-                when {
-                    iframe.startsWith("$mainUrl/utils/player/arch/") ||
-                            iframe.startsWith("$mainUrl/utils/player/race/") ->
-                        request(iframe, ref = data).document.select("source").attr("src")
-                            .let { link ->
-                                val source =
-                                    when {
-                                        iframe.contains("/arch/") -> "Arch"
-                                        iframe.contains("/race/") -> "Race"
-                                        else -> this.name
-                                    }
-                                callback.invoke(
-                                    newExtractorLink(
-                                        source,
-                                        source,
-                                        link,
-                                    ) {
-                                        this.referer = mainUrl
-                                        this.quality = getIndexQuality(it.text())
-                                    }
-                                )
-                            }
-                    //                    skip for now
-                    //                    iframe.startsWith("$mainUrl/utils/player/fichan/") -> ""
-                    //                    iframe.startsWith("$mainUrl/utils/player/blogger/") -> ""
-                    iframe.startsWith("https://aghanim.xyz/tools/redirect/") -> {
-                        val link =
-                            "https://rasa-cintaku-semakin-berantai.xyz/v/${
-                                iframe.substringAfter("id=").substringBefore("&token")
-                            }"
-                        loadFixedExtractor(link, quality, mainUrl, subtitleCallback, callback)
-                    }
-
-                    iframe.startsWith("$mainUrl/utils/player/framezilla/") ||
-                            iframe.startsWith("https://uservideo.xyz") -> {
-                        request(iframe, ref = data).document.select("iframe").attr("src").let { link
-                            ->
-                            loadFixedExtractor(
-                                fixUrl(link),
-                                quality,
-                                mainUrl,
-                                subtitleCallback,
-                                callback
-                            )
-                        }
-                    }
-
-                    else -> {
-                        loadFixedExtractor(iframe, quality, mainUrl, subtitleCallback, callback)
-                    }
-                }
+                loadFixedExtractor(
+                    fixUrl(link),
+                    quality,
+                    mainUrl,
+                    subtitleCallback,
+                    callback
+                )
             }
         }
 
