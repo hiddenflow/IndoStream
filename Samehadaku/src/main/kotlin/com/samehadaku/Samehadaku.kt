@@ -89,6 +89,7 @@ class Samehadaku : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse? {
 		delay(6000)
+		
         val fixUrl =
                 if (url.contains("/anime/")) {
                     url
