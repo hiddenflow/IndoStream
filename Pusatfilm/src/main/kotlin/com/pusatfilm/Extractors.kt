@@ -19,7 +19,7 @@ open class Kotakajaib : ExtractorApi() {
             subtitleCallback: (SubtitleFile) -> Unit,
             callback: (ExtractorLink) -> Unit
     ) {
-        app.get(url, referer = referer).document.select("ul#dropdown-server li a").amap { _ ->
+        app.get(url, referer = referer).document.select("ul#dropdown-server li a").amap {
             loadExtractor(
                     base64Decode(it.attr("data-frame")),
                     "$mainUrl/",
