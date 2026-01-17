@@ -215,13 +215,24 @@ class AnimeSail : MainAPI() {
                             .attr("src")
                     )
                 val quality = getIndexQuality(it.text())
-                loadFixedExtractor(
-                    fixUrl(link),
-                    quality,
-                    mainUrl,
-                    subtitleCallback,
-                    callback
-                )
+                when {
+                    iframe.startsWith("$mainUrl/utils/player/framezilla/") -> {
+                        request(iframe, ref = data).document.select("iframe").attr("src").let { link
+                            ->
+                            loadFixedExtractor(
+                                fixUrl(link),
+                                quality,
+                                mainUrl,
+                                subtitleCallback,
+                                callback
+                            )
+                        }
+                    }
+
+                    else -> {
+                        loadFixedExtractor(iframe, quality, mainUrl, subtitleCallback, callback)
+                    }
+                }
             }
         }
 
