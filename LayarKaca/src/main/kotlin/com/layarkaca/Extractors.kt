@@ -9,6 +9,11 @@ import com.lagradost.cloudstream3.utils.M3u8Helper
 import com.lagradost.cloudstream3.utils.getQualityFromName
 import com.lagradost.cloudstream3.utils.newExtractorLink
 
+class Furher : Filesim() {
+    override val name = "Furher"
+    override var mainUrl = "https://furher.in"
+}
+
 open class Emturbovid : ExtractorApi() {
     override val name = "Emturbovid"
     override val mainUrl = "https://emturbovid.com"
@@ -32,7 +37,7 @@ open class Emturbovid : ExtractorApi() {
 
 open class Hownetwork : ExtractorApi() {
     override val name = "Hownetwork"
-    override val mainUrl = "https://cloud.hownetwork.xyz"
+    override val mainUrl = "https://stream.hownetwork.xyz"
     override val requiresReferer = true
 
     override suspend fun getUrl(
@@ -42,38 +47,25 @@ open class Hownetwork : ExtractorApi() {
             callback: (ExtractorLink) -> Unit
     ) {
         val id = url.substringAfter("id=")
-        val res =
-                app.post(
-                                "$mainUrl/api.php?id=$id",
-                                data =
-                                        mapOf(
-                                                "r" to "https://playeriframe.sbs/",
-                                                "d" to "stream.hownetwork.xyz",
-                                        ),
-                                referer = url,
-                                headers = mapOf("X-Requested-With" to "XMLHttpRequest")
-                        )
-                        .parsedSafe<Sources>()
-
-        res?.data?.map {
-            callback.invoke(
-				newExtractorLink(
-                    name,
-                    name,
-                    it.file
-                ){
-					this.referer = url
-					this.quality = getQualityFromName(it.label)
-				}                    
-            )
-        }
-    }
-
-    data class Sources(val data: ArrayList<Data>) {
-        data class Data(
-                val file: String,
-                val label: String?,
-        )
+        val response = app.post(
+                "$mainUrl/api.php?id=$id",
+                data = mapOf(
+                        "r" to "",
+                        "d" to mainUrl,
+                ),
+                referer = url,
+                headers = mapOf(
+                        "X-Requested-With" to "XMLHttpRequest"
+                )
+        ).text
+        val json = JSONObject(response)
+        val file = json.optString("file")
+        Log.d("Phisher", file)
+            M3u8Helper.generateM3u8(
+                this.name,
+                file,
+                file
+            ).forEach(callback)
     }
 }
 
