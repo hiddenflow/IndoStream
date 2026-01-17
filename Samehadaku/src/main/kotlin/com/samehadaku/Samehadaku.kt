@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import org.jsoup.nodes.Element
 
 class Samehadaku : MainAPI() {
-    override var mainUrl = "https://samehadaku.care/"
+    override var mainUrl = "https://v1.samehadaku.how/"
     override var name = "Samehadaku"
     override val hasMainPage = true
     override var lang = "id"
@@ -89,8 +89,6 @@ class Samehadaku : MainAPI() {
     }
 
     override suspend fun load(url: String): LoadResponse? {
-		delay(7000)
-		
         val fixUrl =
                 if (url.contains("/anime/")) {
                     url
