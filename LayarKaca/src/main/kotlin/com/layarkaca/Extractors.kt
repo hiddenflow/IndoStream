@@ -8,6 +8,7 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.M3u8Helper
 import com.lagradost.cloudstream3.utils.getQualityFromName
 import com.lagradost.cloudstream3.utils.newExtractorLink
+import org.json.JSONObject
 
 class Furher : Filesim() {
     override val name = "Furher"
@@ -60,12 +61,11 @@ open class Hownetwork : ExtractorApi() {
         ).text
         val json = JSONObject(response)
         val file = json.optString("file")
-        Log.d("Phisher", file)
-            M3u8Helper.generateM3u8(
-                this.name,
-                file,
-                file
-            ).forEach(callback)
+        M3u8Helper.generateM3u8(
+            this.name,
+            file,
+            file
+        ).forEach(callback)
     }
 }
 
