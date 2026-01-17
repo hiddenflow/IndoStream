@@ -9,6 +9,7 @@ import com.lagradost.cloudstream3.app
 import com.lagradost.cloudstream3.utils.ExtractorLinkType
 import com.lagradost.cloudstream3.utils.JsUnpacker
 import com.lagradost.cloudstream3.utils.Qualities
+import com.lagradost.cloudstream3.utils.newExtractorLink
 
 
 class Ryderjet : VidhideExtractor() {
@@ -35,23 +36,21 @@ class FilemoonV2 : ExtractorApi() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
-        Log.d("Phisher","I'm here")
         val href=app.get(url).document.selectFirst("iframe")?.attr("src") ?:""
-        Log.d("Phisher",href)
         val res= app.get(href, headers = mapOf("Accept-Language" to "en-US,en;q=0.5","sec-fetch-dest" to "iframe")).document.selectFirst("script:containsData(function(p,a,c,k,e,d))")?.data().toString()
         val m3u8= JsUnpacker(res).unpack()?.let { unPacked ->
             Regex("sources:\\[\\{file:\"(.*?)\"").find(unPacked)?.groupValues?.get(1)
         }
-        Log.d("Phisher",m3u8.toString())
         callback.invoke(
-            ExtractorLink(
-                this.name,
-                this.name,
+            newExtractorLink(
                 m3u8 ?:"",
+                this.name,
                 url,
-                Qualities.P1080.value,
-                type = ExtractorLinkType.M3U8,
-            )
+                ExtractorLinkType.M3U8
+            ) {
+                this.referer = referer ?: ""
+                this.quality = Qualities.P1080.value
+            }
         )
     }
 }
