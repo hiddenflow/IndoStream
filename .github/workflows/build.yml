@@ -7,6 +7,9 @@ concurrency:
 on:
   workflow_dispatch:  # hanya jalan saat ditekan manual dari GitHub UI
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
