@@ -1,7 +1,7 @@
 package com.dutamovie
 
 import com.lagradost.cloudstream3.extractors.JWPlayer
-
+import com.lagradost.cloudstream3.extractors.VidhideExtractor
 
 class Ryderjet: VidhideExtractor() {
     override var mainUrl = "https://ryderjet.com"
