@@ -209,7 +209,7 @@ class AnimeSail : MainAPI() {
         val document = req.document
         val cookies = req.cookies
         
-        if (data.contains("mp4upload")) logError(Throwable(cookies))
+        if (data.contains("mp4upload")) logError(Exception(cookies.toString()))
 
         document.select(".mobius > .mirror > option").amap {
             safeApiCall {
