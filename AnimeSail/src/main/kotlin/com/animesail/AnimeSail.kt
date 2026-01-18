@@ -8,6 +8,7 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.Qualities
 import com.lagradost.cloudstream3.utils.loadExtractor
 import com.lagradost.cloudstream3.utils.newExtractorLink
+import com.lagradost.cloudstream3.mvvm.logError
 import com.lagradost.nicehttp.NiceResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import org.jsoup.nodes.Element
 import com.lagradost.cloudstream3.SubtitleFile
 import com.lagradost.cloudstream3.app
 import kotlin.text.Regex
+import android.util.Log
 
 class AnimeSail : MainAPI() {
     override var mainUrl = "https://154.26.137.28"
@@ -214,6 +216,7 @@ class AnimeSail : MainAPI() {
                             .select("iframe")
                             .attr("src")
                     )
+                logError(Exception("iframe: $iframe"))
                 val quality = getIndexQuality(it.text())
                 when {
                     iframe.startsWith("$mainUrl/utils/player/framezilla/") -> {
