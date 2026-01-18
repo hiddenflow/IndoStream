@@ -18,7 +18,6 @@ import org.jsoup.nodes.Element
 import com.lagradost.cloudstream3.SubtitleFile
 import com.lagradost.cloudstream3.app
 import kotlin.text.Regex
-import android.util.Log
 
 class AnimeSail : MainAPI() {
     override var mainUrl = "https://154.26.137.28"
@@ -206,7 +205,11 @@ class AnimeSail : MainAPI() {
         callback: (ExtractorLink) -> Unit
     ): Boolean {
 
-        val document = request(data).document
+        val req = request(data).document
+        val document = req.document
+        val cookies = req.cookies
+        
+        if (data.contains("mp4upload")) logError(Throwable(cookies))
 
         document.select(".mobius > .mirror > option").amap {
             safeApiCall {
@@ -216,12 +219,10 @@ class AnimeSail : MainAPI() {
                             .select("iframe")
                             .attr("src")
                     )
-                logError(Exception("iframe: $iframe"))
                 val quality = getIndexQuality(it.text())
                 when {
                     iframe.startsWith("$mainUrl/utils/player/framezilla/") -> {
-                        request(iframe, ref = data).document.select("iframe").attr("src").let { link
-                            ->
+                        request(iframe, ref = data).document.select("iframe").attr("src").let { link ->
                             loadFixedExtractor(
                                 fixUrl(link),
                                 quality,
@@ -258,14 +259,15 @@ class AnimeSail : MainAPI() {
             CoroutineScope(Dispatchers.IO).launch {
                 callback.invoke(
                     newExtractorLink(
-                        name,
-                        name,
-                        link.url,
+						link.name,
+						link.name,
+						link.url,						
+						link.type
                     ) {
                         this.referer = link.referer
-                        this.type = link.type
-                        this.extractorData = link.extractorData
-                        this.headers = link.headers
+						this.quality = name.fixQuality()
+						this.headers = link.headers
+						this.extractorData = link.extractorData
                     }
                 )
             }
