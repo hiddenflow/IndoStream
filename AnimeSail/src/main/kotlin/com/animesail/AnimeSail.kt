@@ -225,7 +225,7 @@ class AnimeSail : MainAPI() {
                                 fixUrl(link),
                                 quality,
                                 mainUrl,
-                                cookies.toString(),
+                                cookies,
                                 subtitleCallback,
                                 callback
                             )
@@ -233,7 +233,7 @@ class AnimeSail : MainAPI() {
                     }
 
                     else -> {
-                        loadFixedExtractor(iframe, quality, mainUrl, cookies.toString(), subtitleCallback, callback)
+                        loadFixedExtractor(iframe, quality, mainUrl, cookies, subtitleCallback, callback)
                     }
                 }
             }
@@ -251,12 +251,10 @@ class AnimeSail : MainAPI() {
         url: String,
         quality: Int,
         referer: String? = null,
-        cookies: String? = null,
+        cookies: Map<String, String>,
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
-        if (url.contains("mp4upload")) logError(Exception(cookies?.toString()))
-        
         loadExtractor(url, referer, subtitleCallback) { link ->
             CoroutineScope(Dispatchers.IO).launch {
                 callback.invoke(
@@ -266,9 +264,12 @@ class AnimeSail : MainAPI() {
 						link.url,						
 						link.type
                     ) {
+                        val myheader = link.headers?.toMutableMap() ?: mutableMapOf()
+                        myheader.putAll(cookies)
+
                         this.referer = link.referer
 						this.quality = quality
-						this.headers = link.headers
+						this.headers = myheader.toMap()
 						this.extractorData = link.extractorData
                     }
                 )
