@@ -205,7 +205,7 @@ class AnimeSail : MainAPI() {
         callback: (ExtractorLink) -> Unit
     ): Boolean {
 
-        val req = request(data).document
+        val req = request(data)
         val document = req.document
         val cookies = req.cookies
         
@@ -265,7 +265,7 @@ class AnimeSail : MainAPI() {
 						link.type
                     ) {
                         this.referer = link.referer
-						this.quality = name.fixQuality()
+						this.quality = quality
 						this.headers = link.headers
 						this.extractorData = link.extractorData
                     }
