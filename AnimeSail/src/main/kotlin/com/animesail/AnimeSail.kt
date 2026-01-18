@@ -209,8 +209,6 @@ class AnimeSail : MainAPI() {
         val document = req.document
         val cookies = req.cookies
         
-        if (data.contains("mp4upload")) logError(Exception(cookies.toString()))
-
         document.select(".mobius > .mirror > option").amap {
             safeApiCall {
                 val iframe =
@@ -255,6 +253,8 @@ class AnimeSail : MainAPI() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
+        if (iframe.contains("mp4upload")) logError(Exception(cookies.toString()))
+        
         loadExtractor(url, referer, subtitleCallback) { link ->
             CoroutineScope(Dispatchers.IO).launch {
                 callback.invoke(
