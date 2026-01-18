@@ -253,7 +253,7 @@ class AnimeSail : MainAPI() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
-        if (iframe.contains("mp4upload")) logError(Exception(cookies.toString()))
+        if (url.contains("mp4upload")) logError(Exception(cookies.toString()))
         
         loadExtractor(url, referer, subtitleCallback) { link ->
             CoroutineScope(Dispatchers.IO).launch {
