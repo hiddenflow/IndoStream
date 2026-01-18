@@ -225,6 +225,7 @@ class AnimeSail : MainAPI() {
                                 fixUrl(link),
                                 quality,
                                 mainUrl,
+                                cookies.toString(),
                                 subtitleCallback,
                                 callback
                             )
@@ -232,7 +233,7 @@ class AnimeSail : MainAPI() {
                     }
 
                     else -> {
-                        loadFixedExtractor(iframe, quality, mainUrl, subtitleCallback, callback)
+                        loadFixedExtractor(iframe, quality, mainUrl, cookies.toString(), subtitleCallback, callback)
                     }
                 }
             }
@@ -250,10 +251,11 @@ class AnimeSail : MainAPI() {
         url: String,
         quality: Int,
         referer: String? = null,
+        cookies: String? = null,
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
-        if (url.contains("mp4upload")) logError(Exception(cookies.toString()))
+        if (url.contains("mp4upload")) logError(Exception(cookies?.toString()))
         
         loadExtractor(url, referer, subtitleCallback) { link ->
             CoroutineScope(Dispatchers.IO).launch {
