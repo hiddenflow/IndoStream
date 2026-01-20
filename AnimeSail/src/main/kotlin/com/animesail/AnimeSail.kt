@@ -218,6 +218,7 @@ class AnimeSail : MainAPI() {
                             .attr("src")
                     )
                 val quality = getIndexQuality(it.text())
+                logError(Exception(iframe))
                 when {
                     iframe.startsWith("$mainUrl/utils/player/framezilla/") -> {
                         request(iframe, ref = data).document.select("iframe").attr("src").let { link ->
@@ -251,7 +252,7 @@ class AnimeSail : MainAPI() {
         url: String,
         quality: Int,
         referer: String? = null,
-        cookies: Map<String, String>,
+        cookies: Map<String, String> = mapOf(),
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {

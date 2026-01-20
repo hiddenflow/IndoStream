@@ -17,7 +17,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
 class Otakudesu : MainAPI() {
-    override var mainUrl = "https://otakudesu.cloud"
+    override var mainUrl = "https://otakudesu.best"
     override var name = "Otakudesu"
     override val hasMainPage = true
     override var lang = "id"
