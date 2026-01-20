@@ -1,4 +1,4 @@
-#import com.android.build.gradle.BaseExtension
+//import com.android.build.gradle.BaseExtension
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.kotlin.dsl.configure
 import com.lagradost.cloudstream3.gradle.CloudstreamExtension
@@ -32,7 +32,7 @@ fun Project.cloudstream(configuration: CloudstreamExtension.() -> Unit) = extens
 fun Project.android(configuration: CommonExtension<*, *, *, *, *, *>.() -> Unit) = 
     configure(configuration)
 
-#fun Project.android(configuration: BaseExtension.() -> Unit) = extensions.getByName<BaseExtension>("android").configuration()
+//fun Project.android(configuration: BaseExtension.() -> Unit) = extensions.getByName<BaseExtension>("android").configuration()
 
 subprojects {
     apply(plugin = "com.android.library")
