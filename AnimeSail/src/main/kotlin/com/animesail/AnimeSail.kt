@@ -8,6 +8,7 @@ import com.lagradost.cloudstream3.utils.ExtractorLink
 import com.lagradost.cloudstream3.utils.Qualities
 import com.lagradost.cloudstream3.utils.loadExtractor
 import com.lagradost.cloudstream3.utils.newExtractorLink
+import com.lagradost.cloudstream3.utils.StringUtils.decodeUri
 import com.lagradost.cloudstream3.mvvm.logError
 import com.lagradost.nicehttp.NiceResponse
 import kotlinx.coroutines.CoroutineScope
@@ -207,7 +208,7 @@ class AnimeSail : MainAPI() {
 
         val req = request(data)
         val document = req.document
-        val cookies = req.cookies
+        // val cookies = req.cookies
         
         document.select(".mobius > .mirror > option").amap {
             safeApiCall {
@@ -218,7 +219,7 @@ class AnimeSail : MainAPI() {
                             .attr("src")
                     )
                 val quality = getIndexQuality(it.text())
-                logError(Exception(iframe))
+
                 when {
                     iframe.startsWith("$mainUrl/utils/player/framezilla/") -> {
                         request(iframe, ref = data).document.select("iframe").attr("src").let { link ->
@@ -226,21 +227,95 @@ class AnimeSail : MainAPI() {
                                 fixUrl(link),
                                 quality,
                                 mainUrl,
-                                cookies,
                                 subtitleCallback,
                                 callback
                             )
                         }
                     }
 
+                    iframe.contains("dragon.aghanim.xyz") -> {
+                        val dragonResponse = app.get(
+                            iframe,
+                            referer = data,
+                            interceptor = WebViewResolver(
+                                Regex("ticketPass=|player|video"),
+                                timeout = 60000
+                            )
+                        )
+                        
+                        val videoUrl = extractDragonVideo(dragonResponse.text)
+                        
+                        if (videoUrl != null) {
+                            callback.invoke(
+                                newExtractorLink(
+                                    "Dragon",
+                                    "Dragon Server",
+                                    videoUrl
+                                ) {
+                                    this.referer = dragonResponse.url
+                                    this.quality = quality
+                                    this.isM3u8 = videoUrl.contains(".m3u8")
+                                }
+                            )
+                        }
+                    }
+
+                    iframe.startsWith("$mainUrl/utils/player/popup/") -> {
+                        val encodedPart = iframe.substringAfter("url=").substringBefore("&")
+                        val decodeUrl = encodedPart.decodeUri()
+
+                        if decodeUrl.contains("buzzheavier") {
+                            request(iframe, ref = data).document.select("source").attr("src").let { link ->
+                                newExtractorLink(
+                                    "BuzzServer",
+                                    "BuzzServer",
+                                    link
+                                ) { this.quality = quality }
+                            }
+                        } else {
+                            loadExtractor(iframe, referer = mainUrl, subtitleCallback, callback)
+                        }
+                    }
+
+                    iframe.startsWith("$mainUrl/utils/player/pomf/") -> {
+                        request(iframe, ref = data).document.select("source").attr("src").let { link ->
+                            newExtractorLink(
+                                "PomPom",
+                                "PomPom",
+                                link
+                            ) { this.quality = quality }
+                        }
+                    }
+
                     else -> {
-                        loadFixedExtractor(iframe, quality, mainUrl, cookies, subtitleCallback, callback)
+                        loadExtractor(iframe, referer = mainUrl, subtitleCallback, callback)
                     }
                 }
             }
         }
 
         return true
+    }
+
+    private fun extractDragonVideo(html: String): String? {
+        val patterns = listOf(
+            Regex("""file\s*:\s*["']([^"']*\.m3u8[^"']*)["']"""),
+            Regex("""src\s*:\s*["']([^"']*\.m3u8[^"']*)["']"""),
+            Regex("""file\s*:\s*["']([^"']*\.mp4[^"']*)["']"""),
+            Regex(""""url"\s*:\s*"([^"]+)""""),
+            Regex("""player\.src\s*=\s*["']([^"']+)["']"""),
+            Regex("""(https?://[^"'\s]+\.(?:m3u8|mp4)[^"'\s]*)""")
+        )
+        
+        for (pattern in patterns) {
+            pattern.find(html)?.groupValues?.getOrNull(1)?.let { url ->
+                if (url.isNotBlank() && url.startsWith("http")) {
+                    return url
+                }
+            }
+        }
+        
+        return null
     }
 
     private fun getIndexQuality(str: String?): Int {
@@ -252,7 +327,6 @@ class AnimeSail : MainAPI() {
         url: String,
         quality: Int,
         referer: String? = null,
-        cookies: Map<String, String> = mapOf(),
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ) {
@@ -265,12 +339,12 @@ class AnimeSail : MainAPI() {
 						link.url,						
 						link.type
                     ) {
-                        val myheader = link.headers?.toMutableMap() ?: mutableMapOf()
-                        myheader.putAll(cookies)
+                        // val myheader = link.headers?.toMutableMap() ?: mutableMapOf()
+                        // myheader.putAll(cookies)
 
                         this.referer = link.referer
 						this.quality = quality
-						this.headers = myheader.toMap()
+						this.headers = link.headers
 						this.extractorData = link.extractorData
                     }
                 )
