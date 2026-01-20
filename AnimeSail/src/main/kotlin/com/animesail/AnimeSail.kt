@@ -10,6 +10,7 @@ import com.lagradost.cloudstream3.utils.loadExtractor
 import com.lagradost.cloudstream3.utils.newExtractorLink
 import com.lagradost.cloudstream3.utils.StringUtils.decodeUri
 import com.lagradost.cloudstream3.mvvm.logError
+import com.lagradost.cloudstream3.network.WebViewResolver
 import com.lagradost.nicehttp.NiceResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -254,7 +255,6 @@ class AnimeSail : MainAPI() {
                                 ) {
                                     this.referer = dragonResponse.url
                                     this.quality = quality
-                                    this.isM3u8 = videoUrl.contains(".m3u8")
                                 }
                             )
                         }
@@ -264,13 +264,15 @@ class AnimeSail : MainAPI() {
                         val encodedPart = iframe.substringAfter("url=").substringBefore("&")
                         val decodeUrl = encodedPart.decodeUri()
 
-                        if decodeUrl.contains("buzzheavier") {
+                        if (decodeUrl.contains("buzzheavier")) {
                             request(iframe, ref = data).document.select("source").attr("src").let { link ->
-                                newExtractorLink(
-                                    "BuzzServer",
-                                    "BuzzServer",
-                                    link
-                                ) { this.quality = quality }
+                                callback(
+                                    newExtractorLink(
+                                        "BuzzServer",
+                                        "BuzzServer",
+                                        link
+                                    ) { this.quality = quality }
+                                )
                             }
                         } else {
                             loadExtractor(iframe, referer = mainUrl, subtitleCallback, callback)
@@ -279,11 +281,13 @@ class AnimeSail : MainAPI() {
 
                     iframe.startsWith("$mainUrl/utils/player/pomf/") -> {
                         request(iframe, ref = data).document.select("source").attr("src").let { link ->
-                            newExtractorLink(
-                                "PomPom",
-                                "PomPom",
-                                link
-                            ) { this.quality = quality }
+                            callback(
+                                newExtractorLink(
+                                    "PomPom",
+                                    "PomPom",
+                                    link
+                                ) { this.quality = quality }
+                            )
                         }
                     }
 
