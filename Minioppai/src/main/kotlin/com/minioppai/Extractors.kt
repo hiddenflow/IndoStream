@@ -76,10 +76,10 @@ open class Streampai : ExtractorApi() {
     }
 
     data class Responses(
-        @JsonProperty("src") val src: String,
-        @JsonProperty("type") val type: String?,
-        @JsonProperty("label") val label: String?,
-        @JsonProperty("size") val size: Int?
+        @field:@JsonProperty("src") val src: String,
+        @field:@JsonProperty("type") val type: String?,
+        @field:@JsonProperty("label") val label: String?,
+        @field:@JsonProperty("size") val size: Int?
     )
 
 }

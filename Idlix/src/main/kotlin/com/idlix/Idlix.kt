@@ -342,19 +342,19 @@ class Idlix : MainAPI() {
     }
 
     data class ResponseSource(
-            @JsonProperty("hls") val hls: Boolean,
-            @JsonProperty("videoSource") val videoSource: String,
-            @JsonProperty("securedLink") val securedLink: String?,
+            @field:@JsonProperty("hls") val hls: Boolean,
+            @field:@JsonProperty("videoSource") val videoSource: String,
+            @field:@JsonProperty("securedLink") val securedLink: String?,
     )
 
     data class Tracks(
-            @JsonProperty("kind") val kind: String?,
-            @JsonProperty("file") val file: String,
-            @JsonProperty("label") val label: String?,
+            @field:@JsonProperty("kind") val kind: String?,
+            @field:@JsonProperty("file") val file: String,
+            @field:@JsonProperty("label") val label: String?,
     )
 
     data class ResponseHash(
-            @JsonProperty("embedurl") val embedurl: String,
-            @JsonProperty("key") val key: String,
+            @field:@JsonProperty("embedurl") val embedurl: String,
+            @field:@JsonProperty("key") val key: String,
     )
 }

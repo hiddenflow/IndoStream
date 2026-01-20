@@ -257,8 +257,8 @@ open class Rebahin : MainAPI() {
     }
 
     private data class Tracks(
-            @JsonProperty("file") val file: String? = null,
-            @JsonProperty("label") val label: String? = null,
-            @JsonProperty("kind") val kind: String? = null
+            @field:@JsonProperty("file") val file: String? = null,
+            @field:@JsonProperty("label") val label: String? = null,
+            @field:@JsonProperty("kind") val kind: String? = null
     )
 }

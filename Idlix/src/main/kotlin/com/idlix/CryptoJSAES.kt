@@ -9,9 +9,9 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 data class EncryptedData(
-        @JsonProperty("ct") val ct: String,
-        @JsonProperty("iv") val iv: String,
-        @JsonProperty("s") val s: String
+        @field:@JsonProperty("ct") val ct: String,
+        @field:@JsonProperty("iv") val iv: String,
+        @field:@JsonProperty("s") val s: String
 )
 
 object CryptoJsAes {

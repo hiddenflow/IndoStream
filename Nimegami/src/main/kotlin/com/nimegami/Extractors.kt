@@ -43,11 +43,11 @@ open class Mitedrive : ExtractorApi() {
     }
 
     data class Data(
-            @JsonProperty("original_url") val url: String? = null,
+            @field:@JsonProperty("original_url") val url: String? = null,
     )
 
     data class Responses(
-            @JsonProperty("data") val data: Data? = null,
+            @field:@JsonProperty("data") val data: Data? = null,
     )
 }
 

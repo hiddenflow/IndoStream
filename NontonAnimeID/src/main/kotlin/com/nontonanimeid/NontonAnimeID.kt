@@ -234,10 +234,10 @@ class NontonAnimeID : MainAPI() {
     }
 
     private data class EpResponse(
-        @JsonProperty("posts") val posts: String?,
-        @JsonProperty("max_page") val max_page: Int?,
-        @JsonProperty("found_posts") val found_posts: Int?,
-        @JsonProperty("content") val content: String
+        @field:@JsonProperty("posts") val posts: String?,
+        @field:@JsonProperty("max_page") val max_page: Int?,
+        @field:@JsonProperty("found_posts") val found_posts: Int?,
+        @field:@JsonProperty("content") val content: String
     )
 
 }

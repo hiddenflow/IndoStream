@@ -228,12 +228,12 @@ class Nodrakorid : MainAPI() {
     }
 
     data class LinkData(
-            @JsonProperty("first") var first: Int? = null,
-            @JsonProperty("second") var second: ArrayList<Second> = arrayListOf()
+            @field:@JsonProperty("first") var first: Int? = null,
+            @field:@JsonProperty("second") var second: ArrayList<Second> = arrayListOf()
     )
 
     data class Second(
-            @JsonProperty("first") var first: String,
-            @JsonProperty("second") var second: String
+            @field:@JsonProperty("first") var first: String,
+            @field:@JsonProperty("second") var second: String
     )
 }

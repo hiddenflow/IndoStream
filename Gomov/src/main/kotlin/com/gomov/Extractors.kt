@@ -108,7 +108,7 @@ open class Chillx : ExtractorApi() {
         return regex.replace(input) { it.groupValues[1].toInt(16).toChar().toString() }
     }
 
-    data class Keys(@JsonProperty("chillx") val key: List<String>)
+    data class Keys(@field:@JsonProperty("chillx") val key: List<String>)
 }
 
 class Dhtpre : JWPlayer() {
@@ -159,9 +159,9 @@ open class JWPlayer : ExtractorApi() {
     }
 
     private data class ResponseSource(
-            @JsonProperty("file") val file: String,
-            @JsonProperty("type") val type: String?,
-            @JsonProperty("label") val label: String?
+            @field:@JsonProperty("file") val file: String,
+            @field:@JsonProperty("type") val type: String?,
+            @field:@JsonProperty("label") val label: String?
     )
 }
 

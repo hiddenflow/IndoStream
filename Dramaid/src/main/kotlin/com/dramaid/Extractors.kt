@@ -46,17 +46,17 @@ open class Gcam : ExtractorApi() {
     }
 
     data class Tracks(
-        @JsonProperty("file") val file: String? = null,
-        @JsonProperty("label") val label: String? = null,
+        @field:@JsonProperty("file") val file: String? = null,
+        @field:@JsonProperty("label") val label: String? = null,
     )
 
     data class Sources(
-        @JsonProperty("file") val file: String? = null,
+        @field:@JsonProperty("file") val file: String? = null,
     )
 
     data class Response(
-        @JsonProperty("sources") val sources: ArrayList<Sources>? = arrayListOf(),
-        @JsonProperty("tracks") val tracks: ArrayList<Tracks>? = arrayListOf(),
+        @field:@JsonProperty("sources") val sources: ArrayList<Sources>? = arrayListOf(),
+        @field:@JsonProperty("tracks") val tracks: ArrayList<Tracks>? = arrayListOf(),
     )
 
 }

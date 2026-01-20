@@ -51,12 +51,12 @@ open class Gdplayer : ExtractorApi() {
     }
 
     data class Response(
-            @JsonProperty("title") val title: String? = null,
-            @JsonProperty("sources") val sources: ArrayList<Sources>? = null,
+        @field:@JsonProperty("title") val title: String? = null,
+        @field:@JsonProperty("sources") val sources: ArrayList<Sources>? = null,
     ) {
         data class Sources(
-                @JsonProperty("file") val file: String? = null,
-                @JsonProperty("type") val type: String? = null,
+            @field:@JsonProperty("file") val file: String? = null,
+            @field:@JsonProperty("type") val type: String? = null,
         )
     }
 

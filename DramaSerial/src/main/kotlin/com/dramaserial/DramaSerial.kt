@@ -213,8 +213,8 @@ class DramaSerial : MainAPI() {
     }
 
     data class Sources(
-        @JsonProperty("file") val file: String? = null,
-        @JsonProperty("label") val label: String? = null,
+        @field:@JsonProperty("file") val file: String? = null,
+        @field:@JsonProperty("label") val label: String? = null,
     )
 }
 
