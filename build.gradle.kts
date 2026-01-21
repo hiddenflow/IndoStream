@@ -85,7 +85,7 @@ subprojects {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2") // Untuk coroutines di Android
         implementation("org.mozilla:rhino:1.9.0") // Untuk JavaScript engine
         implementation("me.xdrop:fuzzywuzzy:1.4.0") // Untuk fuzzy matching
-        implementation("com.google.code.gson:gson:2.13.20") // Untuk serialisasi/deserialisasi JSON
+        implementation("com.google.code.gson:gson:2.13.2") // Untuk serialisasi/deserialisasi JSON
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0") // Untuk serialisasi/deserialisasi JSON
         implementation("app.cash.quickjs:quickjs-android:0.9.2") // Untuk JavaScript engine
         implementation("com.squareup.okhttp3:okhttp:4.12.0") // Untuk HTTP requests
