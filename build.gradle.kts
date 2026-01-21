@@ -1,5 +1,6 @@
 //import com.android.build.gradle.BaseExtension
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.gradle.LibraryExtension
 import org.gradle.kotlin.dsl.configure
 import com.lagradost.cloudstream3.gradle.CloudstreamExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -42,7 +43,7 @@ subprojects {
     }
 
     // Gunakan extensions.configure langsung
-    extensions.configure<com.android.build.gradle.LibraryExtension> {
+    extensions.configure<LibraryExtension> {
         namespace = "com.tekuma25"
 
         defaultConfig {
