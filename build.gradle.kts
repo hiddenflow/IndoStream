@@ -32,36 +32,35 @@ subprojects {
     apply(plugin = "com.android.library")
     apply(plugin = "com.lagradost.cloudstream3.gradle")
 
+    // Konfigurasi Android HARUS sebelum cloudstream
+    extensions.configure<LibraryExtension> {
+        namespace = "com.tekuma25"
+        compileSdk = 35
+
+        defaultConfig {
+            minSdk = 21
+        }
+
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
+        }
+    }
+
     cloudstream {
         setRepo(System.getenv("GITHUB_REPOSITORY") ?: "https://github.com/hiddenflow/Indostream")
         authors = listOf("TeKuma25")
     }
 
-    afterEvaluate {
-        extensions.configure<LibraryExtension> {
-            namespace = "com.tekuma25"
-            compileSdk = 35
-
-            defaultConfig {
-                minSdk = 21
-            }
-
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
-        }
-
-        tasks.withType<KotlinJvmCompile>().configureEach {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_1_8)
-                freeCompilerArgs.addAll(
-                    "-Xno-call-assertions",
-                    "-Xno-param-assertions",
-                    "-Xno-receiver-assertions"
-                )
-                allWarningsAsErrors.set(false)
-            }
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+            freeCompilerArgs.addAll(
+                "-Xno-call-assertions",
+                "-Xno-param-assertions",
+                "-Xno-receiver-assertions"
+            )
+            allWarningsAsErrors.set(false)
         }
     }
 
