@@ -29,9 +29,6 @@ allprojects {
 
 fun Project.cloudstream(configuration: CloudstreamExtension.() -> Unit) = extensions.getByName<CloudstreamExtension>("cloudstream").configuration()
 
-fun Project.android(configuration: CommonExtension<*, *, *, *, *, *>.() -> Unit) = 
-    configure(configuration)
-
 //fun Project.android(configuration: BaseExtension.() -> Unit) = extensions.getByName<BaseExtension>("android").configuration()
 
 subprojects {
@@ -44,32 +41,31 @@ subprojects {
         authors = listOf("TeKuma25")
     }
 
-    android {
+    // Gunakan extensions.configure langsung
+    extensions.configure<com.android.build.gradle.LibraryExtension> {
         namespace = "com.tekuma25"
 
         defaultConfig {
             minSdk = 21
-            compileSdkVersion(35)
+            compileSdk = 35
             targetSdk = 35
-
         }
 
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
+    }
 
-
-        tasks.withType<KotlinJvmCompile> {
-            compilerOptions {
-                jvmTarget.set(JvmTarget.JVM_1_8)
-                freeCompilerArgs.addAll(
-                    "-Xno-call-assertions",
-                    "-Xno-param-assertions",
-                    "-Xno-receiver-assertions"
-                )
-                allWarningsAsErrors.set(false)
-            }
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+            freeCompilerArgs.addAll(
+                "-Xno-call-assertions",
+                "-Xno-param-assertions",
+                "-Xno-receiver-assertions"
+            )
+            allWarningsAsErrors.set(false)
         }
     }
 
@@ -95,10 +91,9 @@ subprojects {
         implementation("com.squareup.okhttp3:okhttp:4.12.0") // Untuk HTTP requests
         implementation("androidx.core:core-ktx:1.16.0") // Untuk Log dan utilitas Android
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1") // Untuk coroutines
-
     }
 }
 
-task<Delete>("clean") {
+tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
