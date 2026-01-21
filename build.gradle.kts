@@ -41,14 +41,12 @@ subprojects {
         authors = listOf("TeKuma25")
     }
 
-    // Gunakan extensions.configure langsung
     extensions.configure<LibraryExtension> {
         namespace = "com.tekuma25"
+        compileSdk = 35
 
         defaultConfig {
             minSdk = 21
-            compileSdk = 35
-            targetSdk = 35
         }
 
         compileOptions {
