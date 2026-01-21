@@ -61,22 +61,22 @@ open class Lbx : ExtractorApi() {
     }
 
     data class Resolutions(
-            @field:@JsonProperty("url") val url: String? = null,
-            @field:@JsonProperty("resolution") val resolution: String? = null,
+            @JsonProperty("url") val url: String? = null,
+            @JsonProperty("resolution") val resolution: String? = null,
     )
 
     data class ItemInfo(
-            @field:@JsonProperty("resolutionList")
+            @JsonProperty("resolutionList")
             val resolutionList: ArrayList<Resolutions>? = arrayListOf(),
     )
 
     data class Data(
-            @field:@JsonProperty("itemInfo") val itemInfo: ItemInfo? = null,
-            @field:@JsonProperty("itemId") val itemId: String? = null,
+            @JsonProperty("itemInfo") val itemInfo: ItemInfo? = null,
+            @JsonProperty("itemId") val itemId: String? = null,
     )
 
     data class Responses(
-            @field:@JsonProperty("data") val data: Data? = null,
+            @JsonProperty("data") val data: Data? = null,
     )
 }
 
@@ -129,6 +129,6 @@ open class Kuramadrive : ExtractorApi() {
     }
 
     private data class Source(
-            @field:@JsonProperty("url") val url: String,
+            @JsonProperty("url") val url: String,
     )
 }

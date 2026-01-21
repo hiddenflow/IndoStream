@@ -60,14 +60,14 @@ open class Jeniusplay : ExtractorApi() {
     }
 
     data class ResponseSource(
-            @field:@JsonProperty("hls") val hls: Boolean,
-            @field:@JsonProperty("videoSource") val videoSource: String,
-            @field:@JsonProperty("securedLink") val securedLink: String?,
+            @JsonProperty("hls") val hls: Boolean,
+            @JsonProperty("videoSource") val videoSource: String,
+            @JsonProperty("securedLink") val securedLink: String?,
     )
 
     data class Tracks(
-            @field:@JsonProperty("kind") val kind: String?,
-            @field:@JsonProperty("file") val file: String,
-            @field:@JsonProperty("label") val label: String?,
+            @JsonProperty("kind") val kind: String?,
+            @JsonProperty("file") val file: String,
+            @JsonProperty("label") val label: String?,
     )
 }

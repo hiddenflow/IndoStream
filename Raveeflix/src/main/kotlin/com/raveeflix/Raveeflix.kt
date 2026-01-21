@@ -218,8 +218,8 @@ class Raveeflix : MainAPI() {
     data class Media(val url: String, val poster: String? = null)
 
     data class Index(
-        @field:@JsonProperty("title") val title: String? = null,
-        @field:@JsonProperty("permalink") val permalink: String? = null,
-        @field:@JsonProperty("section") val section: String? = null,
+        @JsonProperty("title") val title: String? = null,
+        @JsonProperty("permalink") val permalink: String? = null,
+        @JsonProperty("section") val section: String? = null,
     )
 }

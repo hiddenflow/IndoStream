@@ -145,27 +145,27 @@ class Anoboy : MainAPI() {
     }
 
     data class Streamsb(
-        @field:@JsonProperty("link") val link: String?,
+        @JsonProperty("link") val link: String?,
     )
 
     data class Server(
-        @field:@JsonProperty("streamsb") val streamsb: Streamsb?,
+        @JsonProperty("streamsb") val streamsb: Streamsb?,
     )
 
     data class Sources(
-        @field:@JsonProperty("server") val server: Server?,
+        @JsonProperty("server") val server: Server?,
     )
 
     data class Responses(
-        @field:@JsonProperty("data") val data: ArrayList<Anime>? = arrayListOf(),
+        @JsonProperty("data") val data: ArrayList<Anime>? = arrayListOf(),
     )
 
     data class Anime(
-        @field:@JsonProperty("post_title") val postTitle: String?,
-        @field:@JsonProperty("post_name") val postName: String?,
-        @field:@JsonProperty("image") val image: String?,
-        @field:@JsonProperty("total_episode") val totalEpisode: String?,
-        @field:@JsonProperty("salt") val salt: String?,
+        @JsonProperty("post_title") val postTitle: String?,
+        @JsonProperty("post_name") val postName: String?,
+        @JsonProperty("image") val image: String?,
+        @JsonProperty("total_episode") val totalEpisode: String?,
+        @JsonProperty("salt") val salt: String?,
     )
 
 }

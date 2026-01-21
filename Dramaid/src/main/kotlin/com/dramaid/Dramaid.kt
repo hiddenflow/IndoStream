@@ -128,17 +128,17 @@ open class Dramaid : MainAPI() {
     }
 
     private data class Sources(
-        @field:@JsonProperty("file") val file: String,
-        @field:@JsonProperty("label") val label: String,
-        @field:@JsonProperty("type") val type: String,
-        @field:@JsonProperty("default") val default: Boolean?
+        @JsonProperty("file") val file: String,
+        @JsonProperty("label") val label: String,
+        @JsonProperty("type") val type: String,
+        @JsonProperty("default") val default: Boolean?
     )
 
     private data class Tracks(
-        @field:@JsonProperty("file") val file: String,
-        @field:@JsonProperty("label") val label: String,
-        @field:@JsonProperty("kind") val type: String,
-        @field:@JsonProperty("default") val default: Boolean?
+        @JsonProperty("file") val file: String,
+        @JsonProperty("label") val label: String,
+        @JsonProperty("kind") val type: String,
+        @JsonProperty("default") val default: Boolean?
     )
 
     private suspend fun invokeDriveSource(

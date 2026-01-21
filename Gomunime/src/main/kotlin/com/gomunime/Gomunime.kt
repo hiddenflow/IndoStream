@@ -220,22 +220,22 @@ class Gomunime : MainAPI() {
     }
 
     private data class Response(
-        @field:@JsonProperty("status") val status: Boolean,
-        @field:@JsonProperty("html") val html: String
+        @JsonProperty("status") val status: Boolean,
+        @JsonProperty("html") val html: String
     )
 
     data class MobiSource(
-        @field:@JsonProperty("file") val file: String,
-        @field:@JsonProperty("label") val label: String,
-        @field:@JsonProperty("type") val type: String
+        @JsonProperty("file") val file: String,
+        @JsonProperty("label") val label: String,
+        @JsonProperty("type") val type: String
     )
 
     private data class EpisodeElement(
-        @field:@JsonProperty("data-index") val dataIndex: Long?,
-        @field:@JsonProperty("ep-num") val epNum: String?,
-        @field:@JsonProperty("ep-title") val epTitle: String?,
-        @field:@JsonProperty("ep-link") val epLink: String,
-        @field:@JsonProperty("ep-date") val epDate: String?
+        @JsonProperty("data-index") val dataIndex: Long?,
+        @JsonProperty("ep-num") val epNum: String?,
+        @JsonProperty("ep-title") val epTitle: String?,
+        @JsonProperty("ep-link") val epLink: String,
+        @JsonProperty("ep-date") val epDate: String?
     )
 
 }

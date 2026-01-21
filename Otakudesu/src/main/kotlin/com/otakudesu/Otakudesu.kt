@@ -163,12 +163,12 @@ class Otakudesu : MainAPI() {
     }
 
     data class ResponseSources(
-            @field:@JsonProperty("id") val id: String,
-            @field:@JsonProperty("i") val i: String,
-            @field:@JsonProperty("q") val q: String,
+            @JsonProperty("id") val id: String,
+            @JsonProperty("i") val i: String,
+            @JsonProperty("q") val q: String,
     )
 
-    data class ResponseData(@field:@JsonProperty("data") val data: String)
+    data class ResponseData(@JsonProperty("data") val data: String)
 
     override suspend fun loadLinks(
             data: String,

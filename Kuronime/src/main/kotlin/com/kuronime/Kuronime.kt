@@ -270,36 +270,36 @@ class Kuronime : MainAPI() {
     }
 
     data class Mirrors(
-        @field:@JsonProperty("embed") val embed: Map<String, Map<String, String>> = emptyMap(),
+        @JsonProperty("embed") val embed: Map<String, Map<String, String>> = emptyMap(),
     )
 
     data class Sources(
-        @field:@JsonProperty("src") var src: String? = null,
+        @JsonProperty("src") var src: String? = null,
     )
 
     data class Servers(
-        @field:@JsonProperty("src") var src: String? = null,
-        @field:@JsonProperty("mirror") var mirror: String? = null,
+        @JsonProperty("src") var src: String? = null,
+        @JsonProperty("mirror") var mirror: String? = null,
     )
 
     data class All(
-        @field:@JsonProperty("post_image") var postImage: String? = null,
-        @field:@JsonProperty("post_image_html") var postImageHtml: String? = null,
-        @field:@JsonProperty("ID") var ID: Int? = null,
-        @field:@JsonProperty("post_title") var postTitle: String? = null,
-        @field:@JsonProperty("post_genres") var postGenres: String? = null,
-        @field:@JsonProperty("post_type") var postType: String? = null,
-        @field:@JsonProperty("post_latest") var postLatest: String? = null,
-        @field:@JsonProperty("post_sub") var postSub: String? = null,
-        @field:@JsonProperty("post_link") var postLink: String? = null
+        @JsonProperty("post_image") var postImage: String? = null,
+        @JsonProperty("post_image_html") var postImageHtml: String? = null,
+        @JsonProperty("ID") var ID: Int? = null,
+        @JsonProperty("post_title") var postTitle: String? = null,
+        @JsonProperty("post_genres") var postGenres: String? = null,
+        @JsonProperty("post_type") var postType: String? = null,
+        @JsonProperty("post_latest") var postLatest: String? = null,
+        @JsonProperty("post_sub") var postSub: String? = null,
+        @JsonProperty("post_link") var postLink: String? = null
     )
 
     data class Anime(
-        @field:@JsonProperty("all") var all: ArrayList<All> = arrayListOf(),
+        @JsonProperty("all") var all: ArrayList<All> = arrayListOf(),
     )
 
     data class Search(
-        @field:@JsonProperty("anime") var anime: ArrayList<Anime> = arrayListOf()
+        @JsonProperty("anime") var anime: ArrayList<Anime> = arrayListOf()
     )
 
 }

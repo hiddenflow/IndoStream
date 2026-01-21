@@ -41,23 +41,23 @@ class Archivd : ExtractorApi() {
     }
 
     data class Link(
-            @field:@JsonProperty("media") val media: String? = null,
+        @JsonProperty("media") val media: String? = null,
     )
 
     data class Data(
-            @field:@JsonProperty("link") val link: Link? = null,
+        @JsonProperty("link") val link: Link? = null,
     )
 
     data class Datas(
-            @field:@JsonProperty("data") val data: Data? = null,
+        @JsonProperty("data") val data: Data? = null,
     )
 
     data class Props(
-            @field:@JsonProperty("datas") val datas: Datas? = null,
+        @JsonProperty("datas") val datas: Datas? = null,
     )
 
     data class Sources(
-            @field:@JsonProperty("props") val props: Props? = null,
+        @JsonProperty("props") val props: Props? = null,
     )
 }
 
@@ -97,9 +97,9 @@ open class Newuservideo : ExtractorApi() {
     }
 
     data class Sources(
-        @field:@JsonProperty("src") val src: String? = null,
-        @field:@JsonProperty("type") val type: String? = null,
-        @field:@JsonProperty("label") val label: String? = null,
+        @JsonProperty("src") val src: String? = null,
+        @JsonProperty("type") val type: String? = null,
+        @JsonProperty("label") val label: String? = null,
     )
 
 }
@@ -144,7 +144,7 @@ open class Blogger : ExtractorApi() {
     }
 
     private data class ResponseSource(
-        @field:@JsonProperty("play_url") val play_url: String,
-        @field:@JsonProperty("format_id") val format_id: Int
+        @JsonProperty("play_url") val play_url: String,
+        @JsonProperty("format_id") val format_id: Int
     )
 }
